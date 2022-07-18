@@ -1,5 +1,5 @@
 param (
-    [boolean]$cleanup
+    [string]$action
 )
 
 # set environment variables
@@ -19,7 +19,12 @@ $anfVolume = "avsDatastore001"
 $anfVolumeSize = 1 #tebibytes
 $subId = (Get-AzContext).Subscription.Id
 
-if($cleanup -eq $false){
+if(!($action)){
+    write-host "no action specified, please use the '-action' flag with one of the following: 'build', 'cleanup', 'list'."
+}
+
+
+if($action -eq "build"){
     # Install Az.NetAppFiles PowerShell module
     write-host "Installing Az.NetAppFiles PowerShell Module..."
     Install-Module -Name Az.NetAppFiles -Scope CurrentUser -Repository PSGallery
@@ -86,7 +91,7 @@ if($cleanup -eq $false){
     }
     Invoke-AzRestMethod @createParams
 
-} elseif($cleanup -eq $true) {
+} elseif($action -eq "cleanup") {
     write-host "Getting list of all volumes in"$anfResourceGroup"/"$anfAccount"/"$anfPool"..."
     $allVolumes = Get-AzResource | Where-Object {$_.ResourceType -eq "Microsoft.NetApp/netAppAccounts/capacityPools/volumes"}
     foreach($volume in $allvolumes){
@@ -114,5 +119,38 @@ if($cleanup -eq $false){
     $subnetId = ($vnet | Get-AzVirtualNetworkSubnetconfig | Where-Object Name -eq $anfSubnet).id
     write-host "Deleting ANF delegated subnet..."
     Remove-AzVirtualNetworkSubnetConfig -Name $anfSubnet -VirtualNetwork $vnet | Set-AzVirtualNetwork
+}
+
+if($action -eq "list") {
+    # List AVS datastores
+    write-host "Listing all AVS datastores..."
+    $datastoreObjects = @()
+    $dataStoreURI = '/subscriptions/' + $subId + '/resourceGroups/' + $privateCloudResourceGroup + '/providers/Microsoft.AVS/privateClouds/' + $privateCloud + '/clusters/Cluster-1/datastores?api-version=2021-12-01'
+    $listParams = @{
+        Path = $dataStoreURI
+        Method = 'GET'
+    }
+    $rawData = (Invoke-AzRestMethod @listParams).Content
+    $objectData = ConvertFrom-Json $rawData
+    foreach($datastore in $objectData.value) {
+        $volumeDetail = Get-AzNetAppFilesVolume -ResourceId $datastore.properties.netAppVolume.Id
+        $datastoreCustomObject = [PSCustomObject]@{
+            datastoreId = $datastore.Id
+            privateCloud = $datastore.Id.split('/')[8]
+            cluster = $datastore.Id.split('/')[10]
+            datastore = $datastore.Id.split('/')[12]
+            volume = $volumeDetail.name.split('/')[2]
+            capacityPool = $volumeDetail.name.split('/')[1]
+            netappAccount = $volumeDetail.name.split('/')[0]
+            Location = $volumeDetail.Location
+            provisionedSize = $volumeDetail.UsageThreshold/1024/1024/1024
+            ResourceID = $volumeDetail.Id
+            SubnetId = $volumeDetail.SubnetId
+            Tags = $volumeDetail.Tags
+            AvsDataStore = $volumeDetail.AvsDataStore
+        }
+        $datastoreObjects += $datastoreCustomObject
+    }
+$datastoreObjects | select-object datastore,privateCloud,cluster,provisionedSize
 }
 
