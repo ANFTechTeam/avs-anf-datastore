@@ -95,15 +95,17 @@ if($action -eq "build"){
     write-host "Getting list of all volumes in"$anfResourceGroup"/"$anfAccount"/"$anfPool"..."
     $allVolumes = Get-AzResource | Where-Object {$_.ResourceType -eq "Microsoft.NetApp/netAppAccounts/capacityPools/volumes"}
     foreach($volume in $allvolumes){
-        $volumeDetails = Get-AzNetAppFilesVolume $volume
-        write-host "Detaching volume from AVS private cloud..."
-        $dataStoreURI = '/subscriptions/' + $subId + '/resourceGroups/' + $privateCloudResourceGroup + '/providers/Microsoft.AVS/privateClouds/' + $privateCloud + '/clusters/Cluster-1/datastores/' + $volumeDetails.CreationToken + '?api-version=2021-12-01'
-        $deleteParams = @{
-            Path = $dataStoreURI
-            Method = 'DELETE'
+        $volumeDetails = Get-AzNetAppFilesVolume -ResourceId $volume.Id
+        if($volumeDetails.AvsDataStore -eq 'Enabled'){
+            write-host "Detaching volume from AVS private cloud..."
+            $dataStoreURI = '/subscriptions/' + $subId + '/resourceGroups/' + $privateCloudResourceGroup + '/providers/Microsoft.AVS/privateClouds/' + $privateCloud + '/clusters/Cluster-1/datastores/' + $volumeDetails.CreationToken + '?api-version=2021-12-01'
+            $deleteParams = @{
+                Path = $dataStoreURI
+                Method = 'DELETE'
+            }
+            Invoke-AzRestMethod @deleteParams
+            Start-Sleep -Seconds 60
         }
-        Invoke-AzRestMethod @deleteParams
-        Start-Sleep -Seconds 60
         write-host "Deleting volume,"$volume.Name"..."
         Remove-AzNetAppFilesVolume -ResourceId $volume.ResourceId
     }
