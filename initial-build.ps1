@@ -4,15 +4,15 @@ param (
 
 # set environment variables
 $privateCloudResourceGroup = "AVS-VMwareExplore-HOL-PC01"
-$privateCloud = "AVS-VMwareExplore-HOL-PC01"
+$privateClouds = ["AVS-VMwareExplore-HOL-PC01"]
 $anfVnet = "avs-hol-vnet" #this vnet must be peered to the AVS vnet
 $anfVnetResourceGroup = "AVS-VMwareExplore-HOL-RG" #this must be an existing resource group
 $anfSubnet = "anf-subnet"
 $anfSubnetPrefix = "10.0.14.64/26"
 $anfResourceGroup = "AVS-VMwareExplore-HOL-RG" #this must be an existing resource group
 $anfLocation = "westeurope"
-$anfAccount = "AVS-VMwareExplore-HOL-ANFNA"
-$anfPool = "AVS-VMwareExplore-HOL-ANFPool"
+$anfAccount = "AVS-VMwareExplore-HOL-ANFNA-A"
+$anfPool = "AVS-VMwareExplore-HOL-ANFPool-A"
 $anfPoolSize = 4 #tebibytes
 $anfPoolServiceLevel = "Premium"
 $anfVolume = "avsDatastore001"
