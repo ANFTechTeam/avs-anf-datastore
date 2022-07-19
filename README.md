@@ -18,22 +18,22 @@ In this VMware hands-on lab, you'll begin with a provisioned Azure VMware Soluti
 ### Create an Azure NetApp Files (ANF) volume
 1. Navigate to `Azure NetApp Files` in the Azure portal
 ![navigate to azure netappfiles](./img/create-anf-volume-step1.png)
-1. Select the Azure NetApp Files `NetApp account` that was assigned to you
+1. Select the Azure NetApp Files `NetApp account` that was assigned
 ![select netapp account](./img/create-anf-volume-step2.png)
 1. Click on `Volumes`
 ![select volumes](./img/create-anf-volume-step3.png)
 1. Click on `Add volume`
     1. Basics tab
-        1. For `Volume name`, use the name that was assigned to you
-        1. For `Capacity pool`, select the capacity pool that was assigned to you
+        1. For `Volume name`, use the name that was assigned
+        1. For `Capacity pool`, select the capacity pool that was assigned
         1. For `Quota`, enter `1024` GiB
-        1. For `Virtual network`, select the virtual network that was assigned to you
+        1. For `Virtual network`, select the virtual network that was assigned
         1. For `Delegated subnet`, select `anf-subnet`
         1. For `Network features`, select `Standard`
         1. Click `Next: Protocol >`
 ![basics tab](./img/create-anf-volume-step4.png)
     1. Protocol tab
-        1. For `File path`, use the value assigned to you
+        1. For `File path`, use the value assigned
         1. For `Versions`, select `NFSv3`
         1. Select the `Azure VMware Solution DataStore` check box
         1. Click `Review + create`
@@ -42,7 +42,7 @@ In this VMware hands-on lab, you'll begin with a provisioned Azure VMware Soluti
 ### Attach your new ANF volume to your AVS private cloud as a datastore
 1. Navigate to `Azure VMware Solution` in the Azure portal
 ![navigate to azure vmware solution](./img/attach-ds-step1.png)
-1. Select the `AVS Private cloud` that was assigned to you
+1. Select the `AVS Private cloud` that was assigned
 ![select private cloud](./img/attach-ds-step2.png)
 1. Click `Storage (preview)`
 ![select storage preview](./img/attach-ds-step4.png)
@@ -56,7 +56,7 @@ In this VMware hands-on lab, you'll begin with a provisioned Azure VMware Soluti
 ![click connect azure netapp files volume](./img/attach-ds-step5.png)
 1. Navigate back to `Azure VMware Solution` in the Azure portal
 ![navigate to azure vmware solution](./img/attach-ds-step1.png)
-1. Select the `AVS Private cloud` that was assigned to you
+1. Select the `AVS Private cloud` that was assigned
 ![select private cloud](./img/attach-ds-step2.png)
 1. Click `Storage (preview)`
 1. Verify your new Azure NetApp Files datastore
