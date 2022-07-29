@@ -1,0 +1,23 @@
+resource "azurerm_resource_provider_registration" "avs_anf_datastores" {
+    name = "Microsoft.NetApp"
+    feature {
+        name       = "ANFAvsDatastore"
+        registered = true
+    }
+    feature {
+        name       = "CloudSanExperience"
+        registered = true
+    }
+    feature {
+        name       = "anfDatastoreExperience"
+        registered = true
+    }
+    feature {
+        name       = "ANFSDNAppliance"
+        registered = true
+    }
+    feature {
+        name       = "AllowPoliciesOnBareMetal"
+        registered = true
+    }
+}

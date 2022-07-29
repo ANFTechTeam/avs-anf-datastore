@@ -4,7 +4,7 @@ param (
 
 # set environment variables
 $privateCloudResourceGroup = "AVS-VMwareExplore-HOL-PC01"
-$privateClouds = ["AVS-VMwareExplore-HOL-PC01"]
+$privateCloud = "AVS-VMwareExplore-HOL-PC01"
 $anfVnet = "avs-hol-vnet" #this vnet must be peered to the AVS vnet
 $anfVnetResourceGroup = "AVS-VMwareExplore-HOL-RG" #this must be an existing resource group
 $anfSubnet = "anf-subnet"
