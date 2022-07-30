@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "existingVNetName": {
+      "value": "vnet-HOL-PC03"
+    },
+    "netappDelegatedSubnetName": {
+      "value": "anf-subnet"
+    },
+    "netappAccountName": {
+      "value": "AccountBicep"
+    },
+    "netappAccountLocation": {
+      "value": "westeurope"
+    },
+    "netappCapacityPoolName": {
+      "value": "CapacityPoolBicep"
+    },
+    "netappCapacityPoolServiceLevel": {
+      "value": "Premium"
+    },
+    "netappCapacityPoolSize": {
+      "value": 4398046511104
+    },
+    "netappVolumeName": {
+      "value": "VolumeBicep"
+    },
+    "netappVolumeSize": {
+      "value": 107374182400
+    },
+    "avsPrivateCloudName": {
+      "value": "AVS-VMwareExplore-HOL-PC03"
+    },
+    "avsPrivateCloudClusterName": {
+      "value": "Cluster-1"
+    }
+  }
+}
