@@ -1,0 +1,148 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.8.9.13224",
+      "templateHash": "15791609211143409457"
+    }
+  },
+  "parameters": {
+    "existingVNetName": {
+      "type": "string"
+    },
+    "netappDelegatedSubnetName": {
+      "type": "string"
+    },
+    "netappAccountName": {
+      "type": "string"
+    },
+    "netappAccountLocation": {
+      "type": "string"
+    },
+    "netappCapacityPoolName": {
+      "type": "string"
+    },
+    "netappCapacityPoolServiceLevel": {
+      "type": "string"
+    },
+    "netappCapacityPoolSize": {
+      "type": "int"
+    },
+    "netappVolumeName": {
+      "type": "string"
+    },
+    "netappVolumeSize": {
+      "type": "int"
+    },
+    "avsPrivateCloudName": {
+      "type": "string"
+    },
+    "avsPrivateCloudClusterName": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/virtualNetworks/subnets",
+      "apiVersion": "2022-01-01",
+      "name": "[format('{0}/{1}', parameters('existingVNetName'), parameters('netappDelegatedSubnetName'))]",
+      "properties": {
+        "delegations": [
+          {
+            "name": "microsoftnetapp",
+            "properties": {
+              "serviceName": "Microsoft.Netapp/volumes"
+            }
+          }
+        ],
+        "addressPrefix": "10.3.2.0/24"
+      },
+      "metadata": {
+        "description": "create Azure NetApp files delegated subnet"
+      }
+    },
+    {
+      "type": "Microsoft.NetApp/netAppAccounts",
+      "apiVersion": "2022-01-01",
+      "name": "[parameters('netappAccountName')]",
+      "location": "[parameters('netappAccountLocation')]",
+      "metadata": {
+        "description": "create Azure NetApp Files account"
+      }
+    },
+    {
+      "type": "Microsoft.NetApp/netAppAccounts/capacityPools",
+      "apiVersion": "2022-01-01",
+      "name": "[format('{0}/{1}', parameters('netappAccountName'), parameters('netappCapacityPoolName'))]",
+      "location": "[parameters('netappAccountLocation')]",
+      "properties": {
+        "coolAccess": false,
+        "qosType": "Auto",
+        "serviceLevel": "[parameters('netappCapacityPoolServiceLevel')]",
+        "size": "[parameters('netappCapacityPoolSize')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.NetApp/netAppAccounts', parameters('netappAccountName'))]"
+      ],
+      "metadata": {
+        "description": "create Azure NetApp Files capacity pool"
+      }
+    },
+    {
+      "type": "Microsoft.NetApp/netAppAccounts/capacityPools/volumes",
+      "apiVersion": "2022-01-01",
+      "name": "[format('{0}/{1}/{2}', parameters('netappAccountName'), parameters('netappCapacityPoolName'), parameters('netappVolumeName'))]",
+      "location": "[parameters('netappAccountLocation')]",
+      "properties": {
+        "avsDataStore": "Enabled",
+        "creationToken": "[parameters('netappVolumeName')]",
+        "exportPolicy": {
+          "rules": [
+            {
+              "allowedClients": "0.0.0.0/0",
+              "chownMode": "restricted",
+              "cifs": false,
+              "hasRootAccess": true,
+              "nfsv3": true,
+              "nfsv41": false,
+              "ruleIndex": 1,
+              "unixReadWrite": true
+            }
+          ]
+        },
+        "networkFeatures": "Standard",
+        "protocolTypes": [
+          "NFSv3"
+        ],
+        "serviceLevel": "[parameters('netappCapacityPoolServiceLevel')]",
+        "subnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('existingVNetName'), parameters('netappDelegatedSubnetName'))]",
+        "usageThreshold": "[parameters('netappVolumeSize')]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.NetApp/netAppAccounts/capacityPools', parameters('netappAccountName'), parameters('netappCapacityPoolName'))]",
+        "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('existingVNetName'), parameters('netappDelegatedSubnetName'))]"
+      ],
+      "metadata": {
+        "description": "create Azure NetApp Files volume"
+      }
+    },
+    {
+      "type": "Microsoft.AVS/privateClouds/clusters/datastores",
+      "apiVersion": "2021-12-01",
+      "name": "[format('{0}/{1}/{2}', parameters('avsPrivateCloudName'), parameters('avsPrivateCloudClusterName'), parameters('netappVolumeName'))]",
+      "properties": {
+        "netAppVolume": {
+          "id": "[resourceId('Microsoft.NetApp/netAppAccounts/capacityPools/volumes', parameters('netappAccountName'), parameters('netappCapacityPoolName'), parameters('netappVolumeName'))]"
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.NetApp/netAppAccounts/capacityPools/volumes', parameters('netappAccountName'), parameters('netappCapacityPoolName'), parameters('netappVolumeName'))]"
+      ],
+      "metadata": {
+        "description": "create AVS datastore from ANF volume"
+      }
+    }
+  ]
+}
