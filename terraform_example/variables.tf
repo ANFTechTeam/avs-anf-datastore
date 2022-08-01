@@ -8,6 +8,11 @@ variable "avs_rg_1_location" {
     default     = ""
 }
 
+variable "avs_privatecloud_1_name" {
+    description = "Name of the AVS private cloud we are attaching to"
+    default     = ""
+}
+
 variable "avs_vnet_1_rg_name" {
     description = "Resource Group containing VNet"
 }

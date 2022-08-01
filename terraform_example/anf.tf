@@ -56,7 +56,7 @@ resource "azurerm_netapp_volume" "avs_anf_volume_1" {
 }
 */
 
-resource "azapi_resource" "avs_anf_volume_avsdatastoreenabled"{
+resource "azapi_resource" "avs_anf_volume_avsdatastoreenabled" {
     depends_on = [
         azurerm_netapp_pool.avs_anf_pool_1
     ]
@@ -82,6 +82,19 @@ resource "azapi_resource" "avs_anf_volume_avsdatastoreenabled"{
                         nfsv3 = true
                     }
                 ]
+            }
+        }
+    })
+}
+
+resource "azapi_resource" "avs_datastore_attach_anfvolume" {
+    type = "Microsoft.AVS/privateClouds/clusters/datastores@2021-12-01"
+    name = var.avs_anf_volume_1_name
+    parent_id = "${data.azurerm_vmware_private_cloud.avs_privatecloud_1.id}/clusters/Cluster-1"
+    body = jsonencode({
+        properties = {
+            netAppVolume = {
+                id = data.azurerm_netapp_volume.anf_datastorevolume_1.id
             }
         }
     })

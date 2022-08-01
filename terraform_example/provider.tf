@@ -15,5 +15,6 @@ provider "azurerm" {
 }
 
 provider "azapi" {
+    skip_provider_registration = "true"
 }
 
