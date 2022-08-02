@@ -62,7 +62,19 @@ In this VMware hands-on lab, you'll begin with a provisioned Azure VMware Soluti
 1. Verify your new Azure NetApp Files datastore
 ![verify anf datastore](./img/attach-ds-step7.png)
 ### Migrate a running virtual machine to your new ANF datastore
-
+1. Launch the vSphere Client and login using the address and credentials provided
+![launch the vspher client](./img.orig/migrate_vm_step1.png)
+1. Right-click on your virtual machine and select 'Migrate...' from the context menu
+![right click your virtual machine and select migrate](./img.orig/migrate_vm_step5.png)
+1. Within the 'Migrate' dialog window, select 'Change storage only'
+![select 'change storage only'](./img.orig/migrate_vm_step6.png)
+1. Click 'Next'
+1. One next page, confirm 'Batch Configure' is selected, change the 'VM Storage Policy' to 'Datastore Default', and select the ANF datastore you created in the previous step
+![select the datastore](./img.orig/migrate_vm_step7.png)
+1. Click 'Next'
+1. Click 'Finish'
+1. Once the migration is complete, select the 'Datastores' tab from your virtual machine's information pane to confirm your virtual machine is now on your ANF datastore.
+![confirm vm is on anf datastore](./img.orig/migrate_vm_step9.png)
 ### Protect your virtual machine using NetApp's Cloud Backup Service for Virtual Machines (CBS for VMs)
 
 ### Restore your virtual machine using NetApp's CBS for VMs
