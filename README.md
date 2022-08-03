@@ -133,3 +133,4 @@ Once your virtual machine has been deleted, you can restore it using NetApp's Cl
 ![confirm summary](./img/restore_step8.png)
 1. Click `OK` in the `Restore` warning pop-up window
 ![ok to warning](./img/restore_step9.png)
+1. Once the restore is complete, navigate back to the vSphere Inventory and confirm your virtual machine is running
