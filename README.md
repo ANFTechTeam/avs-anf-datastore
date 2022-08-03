@@ -12,8 +12,8 @@ In this VMware hands-on lab, you'll begin with a provisioned Azure VMware Soluti
 1. [Create an Azure NetApp Files (ANF) volume](#create-an-azure-netapp-files-anf-volume)
 2. [Attach your new ANF volume to your AVS private cloud as a datastore](#attach-your-new-anf-volume-to-your-avs-private-cloud-as-a-datastore)
 3. [Migrate a running virtual machine to your new ANF datastore](#migrate-a-running-virtual-machine-to-your-new-anf-datastore)
-4. [Protect your virtual machine using NetApp's Cloud Backup Service for Virtual Machines (CBS for VMs)](#protect-your-virtual-machine-using-netapps-cloud-backup-service-for-virtual-machines-cbs-for-vms))
-5. [Restore your virtual machine using NetApp's CBS for VMs](#restore-your-virtual-machine-using-netapps-cbs-for-vms)
+4. [Protect your virtual machine using NetApp's Cloud Backup for Virtual Machines](#protect-your-virtual-machine-using-netapps-cloud-backup-for-virtual-machines)
+5. [Restore your virtual machine using NetApp's Cloud Backup for Virtual Machines](#restore-your-virtual-machine-using-netapps-cloud-backup-for-virtual-machines)
 
 ### Create an Azure NetApp Files (ANF) volume
 1. Navigate to `Azure NetApp Files` in the Azure portal
@@ -76,8 +76,8 @@ In this VMware hands-on lab, you'll begin with a provisioned Azure VMware Soluti
 1. Click `Finish`
 1. Once the migration is complete, select the `Datastores` tab from your virtual machine's information pane to confirm your virtual machine is now on your ANF datastore.
 ![confirm vm is on anf datastore](./img/migrate_vm_step9.png)
-### Protect your virtual machine using NetApp's Cloud Backup Service for Virtual Machines (CBS for VMs)
-Now that your virtual machine is stored on an Azure NetApp Files datastore, we can use NetApp's Cloud Backup Service for Virtual Machines (CBS for VMs) to create a snapshot-based backup that will be virtual machine consistent.
+### Protect your virtual machine using NetApp's Cloud Backup for Virtual Machines
+Now that your virtual machine is stored on an Azure NetApp Files datastore, we can use NetApp's Cloud Backup for Virtual Machines to create a snapshot-based backup that will be virtual machine consistent.
 1. Click on the hamburger menu in the top left corner and select `Cloud Backup for Virtual Machines`
 ![select cbs for vms](./img/backup_step1.png)
 1. Click `Resource Groups`
@@ -105,12 +105,12 @@ Now that your virtual machine is stored on an Azure NetApp Files datastore, we c
 1. Select/highlight your Resource Group
 1. Click `Run Now`
 1. Click `OK` to dismiss the pop-up
-<br>![dismiss pop-up](./img/backup_step9.png)
+![dismiss pop-up](./img/backup_step9.png)
 1. Click `Dashboard` to view the `Recent Job Activites` and verify your backup was successful
-![see backup success](./img/backup_step10.png)
-You have now created an Azure NetApp Files snapshot that is 'virtual machine consistent' using NetApp's Cloud Backup Service for Virtual Machines
-### Restore your virtual machine using NetApp's CBS for VMs
-Once your virtual machine has been deleted, you can restore it using NetApp's Cloud Backup Service for Virtual Machines
+</ br>![see backup success](./img/backup_step10.png)
+You have now created an Azure NetApp Files snapshot that is 'virtual machine consistent' using NetApp's Cloud Backupfor Virtual Machines
+### Restore your virtual machine using NetApp's Cloud Backup for Virtual Machines
+Once your virtual machine has been deleted, you can restore it using NetApp's Cloud Backup for Virtual Machines
 1. From the vSphere client, navigate back to your Inventory
 ![back to inventory](./img/restore_step1.png)
 1. Select `Datastores`
@@ -126,11 +126,12 @@ Once your virtual machine has been deleted, you can restore it using NetApp's Cl
 1. In the `Restore` dialog window, check the `Restart VM` checkbox and leave the `Restore Location` set to `Original Location`
 1. Click `Next`
 ![restore location](./img/restore_step6.png)
-1. In the `Select location` pane, confirm that your datastore is selected
+1. In the `Select location` pane, confirm that your ANF datastore is selected
 1. Click `Next`
 ![confirm datastore](./img/restore_step7.png)
 1. Review the `Summary` and click `Finish`
 ![confirm summary](./img/restore_step8.png)
 1. Click `OK` in the `Restore` warning pop-up window
-<br>![ok to warning](./img/restore_step9.png)
-1. Once the restore is complete, navigate back to the vSphere Inventory and confirm your virtual machine is running
+</ br>![ok to warning](./img/restore_step9.png)
+1. You can view the status of the restore process in the `Recent Tasks` pane at the bottom of the window.
+1. Once the restore is complete, navigate back to the vSphere Inventory and confirm your virtual machine is running.
