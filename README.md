@@ -63,72 +63,73 @@ In this VMware hands-on lab, you'll begin with a provisioned Azure VMware Soluti
 ![verify anf datastore](./img/attach-ds-step7.png)
 ### Migrate a running virtual machine to your new ANF datastore
 1. Launch the vSphere Client and login using the address and credentials provided
-![launch the vspher client](./img.orig/migrate_vm_step1.png)
-1. Right-click on your virtual machine and select 'Migrate...' from the context menu
-![right click your virtual machine and select migrate](./img.orig/migrate_vm_step5.png)
-1. Within the 'Migrate' dialog window, select 'Change storage only'
-![select 'change storage only'](./img.orig/migrate_vm_step6.png)
-1. Click 'Next'
-1. One next page, confirm 'Batch Configure' is selected, change the 'VM Storage Policy' to 'Datastore Default', and select the ANF datastore you created in the previous step
-![select the datastore](./img.orig/migrate_vm_step7.png)
-1. Click 'Next'
-1. Click 'Finish'
-1. Once the migration is complete, select the 'Datastores' tab from your virtual machine's information pane to confirm your virtual machine is now on your ANF datastore.
-![confirm vm is on anf datastore](./img.orig/migrate_vm_step9.png)
+![launch the vsphere client](./img/migrate_vm_step1.png)
+![login](./img/migrate_vm_step2.png)
+1. Right-click on your virtual machine and select `Migrate...` from the context menu
+![right click your virtual machine and select migrate](./img/migrate_vm_step5.png)
+1. Within the `Migrate` dialog window, select `Change storage only`
+![select 'change storage only'](./img/migrate_vm_step6.png)
+1. Click `Next`
+1. On the next page, confirm `Batch Configure` is selected, change the `VM Storage Policy` to `Datastore Default`, and select the ANF datastore you created in the previous step
+![select the datastore](./img/migrate_vm_step7.png)
+1. Click `Next`
+1. Click `Finish`
+1. Once the migration is complete, select the `Datastores` tab from your virtual machine's information pane to confirm your virtual machine is now on your ANF datastore.
+![confirm vm is on anf datastore](./img/migrate_vm_step9.png)
 ### Protect your virtual machine using NetApp's Cloud Backup Service for Virtual Machines (CBS for VMs)
 Now that your virtual machine is stored on an Azure NetApp Files datastore, we can use NetApp's Cloud Backup Service for Virtual Machines (CBS for VMs) to create a snapshot-based backup that will be virtual machine consistent.
-1. Click on the hamburger menu in the top left corner and select 'Cloud Backup for Virtual Machines'
-![select cbs for vms](./img.orig/backup_step1.png)
-1. Click 'Resource Groups'
-1. Click '+ Create'
-![select resource groups and create](./img.orig/backup_step2.png)
+1. Click on the hamburger menu in the top left corner and select `Cloud Backup for Virtual Machines`
+![select cbs for vms](./img/backup_step1.png)
+1. Click `Resource Groups`
+1. Click `+ Create`
+![select resource groups and create](./img/backup_step2.png)
 1. Give your Resource Group the same name as the datastore you created in the previous step
-![resource group name](./img.orig/backup_step2b.png)
-1. Click 'Next'
+![resource group name](./img/backup_step2b.png)
+1. Click `Next`
 1. Find your datastore in the list on the left and click the single arrow pointing to the right
-![add datastore to right](./img.orig/backup_step3.png)
-1. Click 'Next'
-1. In the 'Spanning disks' pane, leave the first/default option selected
-![spanning disks](./img.orig/backup_step4.png)
-1. Click 'Next'
-1. In the 'Policies' pane, select 'OnDemandPolicy'
-![select policy](./img.orig/backup_step5.png)
-1. Click 'Next'
-1. In the 'Schedules' pane, leave everything as is
-![schedules](./img.orig/backup_step6.png)
-1. Click 'Next'
-1. Review the 'Summary' and click 'Finish'
-![summary and finish](./img.orig/backup_step7.png)
+![add datastore to right](./img/backup_step3.png)
+1. Click `Next`
+1. In the `Spanning disks` pane, leave the first/default option selected
+![spanning disks](./img/backup_step4.png)
+1. Click `Next`
+1. In the `Policies` pane, select `OnDemandPolicy`
+![select policy](./img/backup_step5.png)
+1. Click `Next`
+1. In the `Schedules` pane, leave everything as is
+![schedules](./img/backup_step6.png)
+1. Click `Next`
+1. Review the `Summary` and click `Finish`
+![summary and finish](./img/backup_step7.png)
 1. You should now see your Resource Group listed (you may need to refresh your browser)
-![see resource group](./img.orig/backup_step8.png)
+![see resource group](./img/backup_step8.png)
 1. Select/highlight your Resource Group
-1. Click 'Run Now'
-1. Click 'OK' to dismiss the pop-up
-![dismiss pop-up](./img.orig/backup_step9.png)
-1. Click 'Dashboard' to view the 'Recent Job Activites' and verify your backup was successful
-![see backup success](./img.orig/backup_step10.png)
+1. Click `Run Now`
+1. Click `OK` to dismiss the pop-up
+![dismiss pop-up](./img/backup_step9.png)
+1. Click `Dashboard` to view the `Recent Job Activites` and verify your backup was successful
+![see backup success](./img/backup_step10.png)
 You have now created an Azure NetApp Files snapshot that is 'virtual machine consistent' using NetApp's Cloud Backup Service for Virtual Machines
 ### Restore your virtual machine using NetApp's CBS for VMs
 Once your virtual machine has been deleted, you can restore it using NetApp's Cloud Backup Service for Virtual Machines
 1. From the vSphere client, navigate back to your Inventory
-![back to inventory](./img.orig/restore_step1.png)
-1. Select 'Datastores'
+![back to inventory](./img/restore_step1.png)
+1. Select `Datastores`
 1. Select your datastore from the list on the left
-1. Click the 'Configure' tab
-![select datastore](./img.orig/restore_step3.png)
-1. Click 'Backups' under the 'Cloud Backup for Virtual Machines' sub-heading
+1. Click the `Configure` tab
+![select datastore](./img/restore_step3.png)
+1. Click `Backups` under the `Cloud Backup for Virtual Machines` sub-heading
 1. Select your backup from the list
-![select backup from list](./img.orig/restore_step4.png)
+![select backup from list](./img/restore_step4.png)
 1. Highlight your virtual machine in the list
-1. Click the 'Restore' button
-![highlight virtual machine](./img.orig/restore_step5.png)
-1. In the 'Restore' dialog window, check the 'Restart VM' checkbox and leave the 'Restore Location' set to 'Original Location'
-1. Click 'Next'
-![restore location](./img.orig/restore_step6.png)
-1. In the 'Select location' pane, confirm that your datastore is selected
-1. Click 'Next'
-![confirm datastore](./img.orig/restore_step7.png)
-1. Review the 'Summary' and click 'Finish'
-![confirm summary](./img.orig/restore_step8.png)
-1. Click 'OK' in the 'Restore' warning pop-up window
-![ok to warning](./img.orig/restore_step9.png)
+1. Click the `Restore` button
+![highlight virtual machine](./img/restore_step5.png)
+1. In the `Restore` dialog window, check the `Restart VM` checkbox and leave the `Restore Location` set to `Original Location`
+1. Click `Next`
+![restore location](./img/restore_step6.png)
+1. In the `Select location` pane, confirm that your datastore is selected
+1. Click `Next`
+![confirm datastore](./img/restore_step7.png)
+1. Review the `Summary` and click `Finish`
+![confirm summary](./img/restore_step8.png)
+1. Click `OK` in the `Restore` warning pop-up window
+![ok to warning](./img/restore_step9.png)
