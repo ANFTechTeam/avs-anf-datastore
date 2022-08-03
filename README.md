@@ -76,5 +76,59 @@ In this VMware hands-on lab, you'll begin with a provisioned Azure VMware Soluti
 1. Once the migration is complete, select the 'Datastores' tab from your virtual machine's information pane to confirm your virtual machine is now on your ANF datastore.
 ![confirm vm is on anf datastore](./img.orig/migrate_vm_step9.png)
 ### Protect your virtual machine using NetApp's Cloud Backup Service for Virtual Machines (CBS for VMs)
-
+Now that your virtual machine is stored on an Azure NetApp Files datastore, we can use NetApp's Cloud Backup Service for Virtual Machines (CBS for VMs) to create a snapshot-based backup that will be virtual machine consistent.
+1. Click on the hamburger menu in the top left corner and select 'Cloud Backup for Virtual Machines'
+![select cbs for vms](./img.orig/backup_step1.png)
+1. Click 'Resource Groups'
+1. Click '+ Create'
+![select resource groups and create](./img.orig/backup_step2.png)
+1. Give your Resource Group the same name as the datastore you created in the previous step
+![resource group name](./img.orig/backup_step2b.png)
+1. Click 'Next'
+1. Find your datastore in the list on the left and click the single arrow pointing to the right
+![add datastore to right](./img.orig/backup_step3.png)
+1. Click 'Next'
+1. In the 'Spanning disks' pane, leave the first/default option selected
+![spanning disks](./img.orig/backup_step4.png)
+1. Click 'Next'
+1. In the 'Policies' pane, select 'OnDemandPolicy'
+![select policy](./img.orig/backup_step5.png)
+1. Click 'Next'
+1. In the 'Schedules' pane, leave everything as is
+![schedules](./img.orig/backup_step6.png)
+1. Click 'Next'
+1. Review the 'Summary' and click 'Finish'
+![summary and finish](./img.orig/backup_step7.png)
+1. You should now see your Resource Group listed (you may need to refresh your browser)
+![see resource group](./img.orig/backup_step8.png)
+1. Select/highlight your Resource Group
+1. Click 'Run Now'
+1. Click 'OK' to dismiss the pop-up
+![dismiss pop-up](./img.orig/backup_step9.png)
+1. Click 'Dashboard' to view the 'Recent Job Activites' and verify your backup was successful
+![see backup success](./img.orig/backup_step10.png)
+You have now created an Azure NetApp Files snapshot that is 'virtual machine consistent' using NetApp's Cloud Backup Service for Virtual Machines
 ### Restore your virtual machine using NetApp's CBS for VMs
+Once your virtual machine has been deleted, you can restore it using NetApp's Cloud Backup Service for Virtual Machines
+1. From the vSphere client, navigate back to your Inventory
+![back to inventory](./img.orig/restore_step1.png)
+1. Select 'Datastores'
+1. Select your datastore from the list on the left
+1. Click the 'Configure' tab
+![select datastore](./img.orig/restore_step3.png)
+1. Click 'Backups' under the 'Cloud Backup for Virtual Machines' sub-heading
+1. Select your backup from the list
+![select backup from list](./img.orig/restore_step4.png)
+1. Highlight your virtual machine in the list
+1. Click the 'Restore' button
+![highlight virtual machine](./img.orig/restore_step5.png)
+1. In the 'Restore' dialog window, check the 'Restart VM' checkbox and leave the 'Restore Location' set to 'Original Location'
+1. Click 'Next'
+![restore location](./img.orig/restore_step6.png)
+1. In the 'Select location' pane, confirm that your datastore is selected
+1. Click 'Next'
+![confirm datastore](./img.orig/restore_step7.png)
+1. Review the 'Summary' and click 'Finish'
+![confirm summary](./img.orig/restore_step8.png)
+1. Click 'OK' in the 'Restore' warning pop-up window
+![ok to warning](./img.orig/restore_step9.png)
