@@ -107,7 +107,7 @@ Now that your virtual machine is stored on an Azure NetApp Files datastore, we c
 1. Click `OK` to dismiss the pop-up
 ![dismiss pop-up](./img/backup_step9.png)
 1. Click `Dashboard` to view the `Recent Job Activites` and verify your backup was successful
-</ br>![see backup success](./img/backup_step10.png)
+<br>![see backup success](./img/backup_step10.png)
 You have now created an Azure NetApp Files snapshot that is 'virtual machine consistent' using NetApp's Cloud Backupfor Virtual Machines
 ### Restore your virtual machine using NetApp's Cloud Backup for Virtual Machines
 Once your virtual machine has been deleted, you can restore it using NetApp's Cloud Backup for Virtual Machines
@@ -132,6 +132,6 @@ Once your virtual machine has been deleted, you can restore it using NetApp's Cl
 1. Review the `Summary` and click `Finish`
 ![confirm summary](./img/restore_step8.png)
 1. Click `OK` in the `Restore` warning pop-up window
-</ br>![ok to warning](./img/restore_step9.png)
+<br>![ok to warning](./img/restore_step9.png)
 1. You can view the status of the restore process in the `Recent Tasks` pane at the bottom of the window.
 1. Once the restore is complete, navigate back to the vSphere Inventory and confirm your virtual machine is running.
