@@ -74,6 +74,7 @@ In this VMware hands-on lab, you'll begin with a provisioned Azure VMware Soluti
 ![select the datastore](./img/migrate_vm_step7.png)
 1. Click `Next`
 1. Click `Finish`
+1. You can monitor the progress of the migration using the `Recents Tasks` pane at the bottom of your screen.
 1. Once the migration is complete, select the `Datastores` tab from your virtual machine's information pane to confirm your virtual machine is now on your ANF datastore.
 ![confirm vm is on anf datastore](./img/migrate_vm_step9.png)
 ### Protect your virtual machine using NetApp's Cloud Backup for Virtual Machines
@@ -99,14 +100,15 @@ Now that your virtual machine is stored on an Azure NetApp Files datastore, we c
 ![schedules](./img/backup_step6.png)
 1. Click `Next`
 1. Review the `Summary` and click `Finish`
+1. Click `OK`
 ![summary and finish](./img/backup_step7.png)
-1. You should now see your Resource Group listed (you may need to refresh your browser)
+1. You should now see your Resource Group listed (you may need to click the refresh button within the vSphere client)
 ![see resource group](./img/backup_step8.png)
 1. Select/highlight your Resource Group
 1. Click `Run Now`
 1. Click `OK` to dismiss the pop-up
 ![dismiss pop-up](./img/backup_step9.png)
-1. Click `Dashboard` to view the `Recent Job Activites` and verify your backup was successful
+1. Click `Dashboard` to view the `Recent Job Activites` and verify your backup was successful, you may need to wait a minute and refresh the vSphere client.
 <br>![see backup success](./img/backup_step10.png)
 You have now created an Azure NetApp Files snapshot that is 'virtual machine consistent' using NetApp's Cloud Backupfor Virtual Machines
 ### Restore your virtual machine using NetApp's Cloud Backup for Virtual Machines
