@@ -3,19 +3,22 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "existingVNetName": {
-      "value": "vnet-HOL-PC03"
+      "value": "vnet-HOL-PC02"
     },
     "netappDelegatedSubnetName": {
-      "value": "anf-subnet"
+      "value": "ANFSubnet"
+    },
+    "ANFSubnetAddressPrefix": {
+      "value": "10.2.3.0/24"
     },
     "netappAccountName": {
-      "value": "AccountBicep"
+      "value": "AVS-VMwareExplore-HOL-ANFNA-02"
     },
     "netappAccountLocation": {
       "value": "westeurope"
     },
     "netappCapacityPoolName": {
-      "value": "CapacityPoolBicep"
+      "value": "AVS-VMwareExplore-HOL-ANFPool-02"
     },
     "netappCapacityPoolServiceLevel": {
       "value": "Premium"
@@ -24,13 +27,13 @@
       "value": 4398046511104
     },
     "netappVolumeName": {
-      "value": "VolumeBicep"
+      "value": "anf-ds-000-bicep"
     },
     "netappVolumeSize": {
       "value": 107374182400
     },
     "avsPrivateCloudName": {
-      "value": "AVS-VMwareExplore-HOL-PC03"
+      "value": "AVS-VMwareExplore-HOL-PC02"
     },
     "avsPrivateCloudClusterName": {
       "value": "Cluster-1"

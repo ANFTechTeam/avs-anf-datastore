@@ -15,6 +15,9 @@
     "netappDelegatedSubnetName": {
       "type": "string"
     },
+    "ANFSubnetAddressPrefix": {
+      "type": "string"
+    },
     "netappAccountName": {
       "type": "string"
     },
@@ -57,7 +60,7 @@
             }
           }
         ],
-        "addressPrefix": "10.3.2.0/24"
+        "addressPrefix": "[parameters('ANFSubnetAddressPrefix')]"
       },
       "metadata": {
         "description": "create Azure NetApp files delegated subnet"

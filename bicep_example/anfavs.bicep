@@ -1,5 +1,6 @@
 param existingVNetName string
 param netappDelegatedSubnetName string
+param ANFSubnetAddressPrefix string
 param netappAccountName string
 param netappAccountLocation string
 param netappCapacityPoolName string
@@ -40,7 +41,7 @@ resource netappDelegatedSubnet 'Microsoft.Network/virtualNetworks/subnets@2022-0
         }
       }
     ]
-    addressPrefix: '10.3.2.0/24'
+    addressPrefix: ANFSubnetAddressPrefix
   }
 }
 

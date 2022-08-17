@@ -2,11 +2,18 @@
 
 [Azure NetApp Files](https://azure.microsoft.com/services/netapp/) is an enterprise-class, high-performance, metered file storage service. The service supports the most demanding enterprise file workloads in the cloud: databases, SAP, and high-performance computing applications, with no code changes. For more information on Azure NetApp files, see the [Azure NetApp Files documentation](https://docs.microsoft.com/azure/azure-netapp-files/).
 
-[Azure VMware Solution](https://azure.microsoft.com/services/azure-vmware/) provides you with private clouds that contain VMware vSphere clusters built from dedicated bare-metal Azure infrastructure. Azure VMware Solution supports attaching Network File System (NFS) datastores as a persistent storage option. You can create NFS datastores with Azure NetApp Files volumes and attach them to clusters of your choice. For more information on Azure VMware Solution, see the [Azure VMware Solution documentation](https://docs.microsoft.com/azure/azure-vmware/).
-
 By using NFS datastores backed by Azure NetApp Files, you can expand your storage instead of scaling the clusters. 
 
 Note: You can also [Attach Azure NetApp Files to Azure VMware Solution VMs](https://docs.microsoft.com/azure/azure-vmware/netapp-files-with-azure-vmware-solution) directly via NFS or SMB.
+
+[Azure VMware Solution](https://azure.microsoft.com/services/azure-vmware/) provides you with private clouds that contain VMware vSphere clusters built from dedicated bare-metal Azure infrastructure. Azure VMware Solution supports attaching Network File System (NFS) datastores as a persistent storage option. You can create NFS datastores with Azure NetApp Files volumes and attach them to clusters of your choice. For more information on Azure VMware Solution, see the [Azure VMware Solution documentation](https://docs.microsoft.com/azure/azure-vmware/).
+
+[Cloud Backup for Vitual Machines](https://docs.microsoft.com/azure/azure-vmware/install-cloud-backup-virtual-machines) is a plug-in installed in the Azure VMware Solution and enables you to back up and restore Azure NetApp Files datastores and virtual machines (VMs). 
+Use Cloud Backup for VMs to:
+    - Build and securely connect both legacy and cloud-native workloads across environments and unify operations
+    - Provision and resize datastore volumes right from the Azure portal
+    - Take VM consistent snapshots for quick checkpoints
+    - Quickly recover VMs
 
 In this VMware hands-on lab, you'll begin with a provisioned Azure VMware Solution (AVS) private cloud and cluster to complete the following exercises:
 1. [Create an Azure NetApp Files (ANF) volume](#create-an-azure-netapp-files-anf-volume)
