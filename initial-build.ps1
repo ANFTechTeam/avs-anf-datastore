@@ -2,22 +2,21 @@ param (
     [string]$action
 )
 
-#$privateClouds = @('01', '02', '03')
-$privateClouds = @('01')
+$privateClouds = @('1', '2', '3')
+#$privateClouds = @('1')
 
 # set environment variables
-$privateCloudResourceGroup = "AVS-VMwareExplore-HOL-PC"
-$privateCloudName = "AVS-VMwareExplore-HOL-PC"
-$anfVnet = "vnet-HOL-PC" #this vnet must be peered to the AVS vnet
-$anfVnetResourceGroup = "AVS-VMwareExplore-HOL-PC" #this must be an existing resource group
+$privateCloudResourceGroup = "AVS-VMwareExplore-HOL-PC0"
+$privateCloudName = "AVS-VMwareExplore-HOL-PC0"
+$anfVnet = "vnet-HOL-PC0" #this vnet must be peered to the AVS vnet
+$anfVnetResourceGroup = "AVS-VMwareExplore-HOL-PC0" #this must be an existing resource group
 $anfSubnet = "ANFSubnet"
-$anfSubnetPrefix = "10.1.2.0/24"
-$anfResourceGroup = "AVS-VMwareExplore-HOL-PC" #this must be an existing resource group
+$anfResourceGroup = "AVS-VMwareExplore-HOL-PC0" #this must be an existing resource group
 $anfLocation = "westeurope"
-$anfAccount = "AVS-VMwareExplore-HOL-ANFNA-"
-$anfPool = "AVS-VMwareExplore-HOL-ANFPool-"
-$anfPoolSize = 4 #tebibytes
-$anfPoolServiceLevel = "Premium"
+$anfAccount = "AVS-VMwareExplore-HOL-ANFNA-0"
+$anfPool = "AVS-VMwareExplore-HOL-ANFPool-0"
+$anfPoolSize = 26 #tebibytes
+$anfPoolServiceLevel = "Ultra"
 $anfVolume = "anfDatastore000"
 $anfVolumeSize = 1 #tebibytes
 
@@ -58,6 +57,7 @@ if($action -eq "build"){
 
     
     foreach($privateCloud in $privateClouds) {
+        $anfSubnetPrefix = "10." + $privatecloud + ".10.0/24"
         # Create Azure NetApp Files 'Delegated Subnet'
         $anfdelegation = New-AzDelegation -Name "anfDelegation" -ServiceName "Microsoft.Netapp/volumes" 
         $vnet = Get-AzVirtualNetwork -Name $anfVnet$privateCloud -ResourceGroupName $anfVnetResourceGroup$privateCloud
